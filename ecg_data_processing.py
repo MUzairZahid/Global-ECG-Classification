@@ -1,3 +1,15 @@
+"""
+ecg_data_processing.py
+
+Author: Muhammad Uzair Zahid
+Created: 07/10/2021
+Edited: 11/08/2024
+Description: This module provides functions to preprocess ECG data, including baseline correction, R-peak alignment,
+             and feature extraction using wavelet transforms. The main function processes a set of records
+             for both training and testing, with data saved to a specified directory.
+"""
+
+
 import logging
 import argparse
 import pickle
@@ -40,9 +52,9 @@ def calculate_wavelet_coeffs(signal, args):
 def process_record(record, args):
     """Process a single ECG record to extract signal, R-peaks, and wavelet coefficients."""
     try:
-        logger.info(f"Processing record {record}")
+        
 
-        record_path = os.path.join(args.raw_data_path, record)
+        record_path = os.path.join(args.raw_data_dir, record)
         # Load signal and annotations
         signal = wfdb.rdrecord(record_path, channels=[0]).p_signal[:, 0]
         annotation = wfdb.rdann(record_path, "atr")
@@ -76,7 +88,8 @@ def process_record(record, args):
 def process_records_sequentially(records, args):
     """Process multiple records sequentially."""
     results = []
-    for record in records:
+    for i, record in enumerate(records):
+        logger.info(f"Processing record {i+1}/{len(records)} : {record}")
         result = process_record(record, args)
         if result:
             results.append(result)
@@ -87,20 +100,20 @@ if __name__ == "__main__":
     # Parse input arguments
     parser = argparse.ArgumentParser(description="Process ECG records for classification")
     parser.add_argument(
-        "--raw_data_path", 
+        "--raw_data_dir", 
         type=str, 
         default="./mit-bih-arrhythmia-database-1.0.0", 
         help="Path to the folder containing raw MITBIH data."
     )
     parser.add_argument(
-        "--processed_data_path", 
+        "--processed_data_dir", 
         type=str, 
         default="./MITBIH_data_processed", 
         help="Path to save the processed data"
     )
     args = parser.parse_args()
 
-    os.makedirs(args.processed_data_path, exist_ok = True)
+    
 
     # Define other arguments and constants
     args.train_records = [
@@ -134,8 +147,10 @@ if __name__ == "__main__":
     test_data = process_records_sequentially(args.test_records, args)
 
     # Save processed data
-    args.processed_data_path.parent.mkdir(parents=True, exist_ok=True)  # Create directory if it doesn't exist
-    with open(args.processed_data_path, "wb") as f:
+    os.makedirs(args.processed_data_dir, exist_ok = True)
+    processed_data_path = os.path.join(args.processed_data_dir, 'mitbih_processed.pkl')
+    with open(processed_data_path, "wb") as f:
         pickle.dump((train_data, test_data), f, protocol=4)
 
     logger.info("Processing complete!")
+    logger.info(f"Data Saved at {processed_data_path}")
