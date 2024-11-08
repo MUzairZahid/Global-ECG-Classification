@@ -31,7 +31,7 @@ The method outlined in this repository is based on the paper:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/MUzairZahid/Global-ECG-Classification-by-Self-Operational-Neural-Networks-With-Feature-Injection.git
+   git clone https://github.com/MUzairZahid/Global-ECG-Classification.git
    cd yourrepo
    ```
 
