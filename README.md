@@ -20,7 +20,7 @@ The method outlined in this repository is based on the paper:
 - [Installation](#installation)
 - [Data Preparation](#data-preparation)
 - [Running the Code](#running-the-code)
-- [Model Architecture](#model-architecture)
+- [Proposed Approach](#proposed-approach)
 - [Results](#results)
 - [Contact and Collaboration](#contact-and-collaboration)
 - [References](#references)
@@ -39,7 +39,7 @@ The method outlined in this repository is based on the paper:
    Download the MIT-BIH Arrhythmia Database from [PhysioNet](https://physionet.org/content/mitdb/1.0.0/).
 
 3. **Install dependencies:**
-   - Install Python packages from `requirements.txt`.
+   - Install Python packages.
    - Install the **fastonn** library for Self-ONNs:
      ```bash
      git clone https://github.com/junaidmalik09/fastonn
@@ -79,33 +79,24 @@ The method outlined in this repository is based on the paper:
 
 ---
 
-## Model Architecture
+## Proposed Approach
 
-The proposed 1D Self-ONN model is designed to effectively capture the morphological and temporal features of ECG signals. Key components include:
+The proposed 1D Self-ONN model effectively captures the morphological and temporal features of ECG signals. Key components of the approach include:
 
-- **Self-ONN Layers**: Extract morphological features from ECG beats.
-- **Feature Injection**: Temporal features based on R-R intervals are injected into the Self-ONN model for enriched classification.
-
-The architecture is illustrated in the figure below:
+- **Self-ONN Layers**: These layers extract morphological features from individual ECG beats, enabling the model to differentiate arrhythmia types.
+- **Feature Injection**: Temporal features based on R-R intervals are directly injected into the Self-ONN model, enriching the feature space for classification and providing critical information on the sequence and timing of beats.
 
 > ![Figure 1: Proposed Approach.](figures/proposed_approach.png) 
-> *Figure 1: Block diagram of the proposed approach and model architecture for classiﬁcation of ECG signals.*
+> *Figure 1: The proposed approach and model architecture for classiﬁcation of ECG signals.*
 
 ---
 
 ## Results
 
-Our model achieved state-of-the-art performance on the MIT-BIH dataset, with the following metrics:
+The proposed approach demonstrates high accuracy in arrhythmia classification. The main results, as shown in Table 1, provide a comprehensive performance comparison across arrhythmia types.
 
-- **Normal Beats (N)**: Precision: 99.21%, Recall: 99.10%, F1-score: 99.15%
-- **Supra-Ventricular Ectopic Beats (SVEBs)**: Precision: 82.19%, Recall: 82.50%, F1-score: 82.34%
-- **Ventricular Ectopic Beats (VEBs)**: Precision: 94.41%, Recall: 96.10%, F1-score: 95.20%
-
-> ![Figure 2: ROC Curves](#)  
-> *Figure 2: ROC curves for SVEB and VEB beat classification.*
-
-> ![Figure 3: Confusion Matrix](#)  
-> *Figure 3: Confusion matrix for classification on the MIT-BIH dataset.*
+> ![Table 1: Classification Performance](figures/results.png)  
+> *Table 1: CLASSIFICATION PERFORMANCE OF THE PROPOSED 1D SELF-ONN WITH Q =3 AND FIVE COMPETING ALGORITHMS.
 
 These results demonstrate that our Self-ONN approach can perform high-accuracy arrhythmia classification with minimal computational overhead, making it feasible for real-time, low-power ECG monitoring devices.
 
