@@ -36,7 +36,7 @@ def get_arguments():
     parser.add_argument("--wavelet_type", type=str, default="mexh", help="Type of wavelet used for ECG processing.")
     parser.add_argument("--processed_data_path", type=str, default="./MITBIH_data_processed/mitbih_processed.pkl",
                         help="Path to the processed data file.")
-    parser.add_argument("--q_parameter", type=int, default=3, help="Parameter 'q' for Self-ONN.")
+    parser.add_argument("--q", type=int, default=3, help="Parameter 'q' for Self-ONN.")
     parser.add_argument("--save_model_dir", type=str, default="./saved_models", help="Directory to save trained models.")
     parser.add_argument("--learning_rate", type=float, default=0.005, help="Learning rate for the optimizer.")
     parser.add_argument("--max_epochs", type=int, default=30, help="Number of training epochs.")
@@ -66,7 +66,7 @@ def main(args):
 
     # Initialize and configure the model with skorch wrapper
     net = NeuralNetClassifier(
-        SelfONN1DClassifier(q=args.q_parameter),
+        SelfONN1DClassifier(q=args.q),
         criterion=torch.nn.CrossEntropyLoss,
         optimizer=torch.optim.Adam,
         lr=args.learning_rate,
