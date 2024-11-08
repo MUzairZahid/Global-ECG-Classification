@@ -93,10 +93,10 @@ The proposed 1D Self-ONN model effectively captures the morphological and tempor
 
 ## Results
 
-The proposed approach demonstrates high accuracy in arrhythmia classification. The main results, as shown in Table 1, provide a comprehensive performance comparison across arrhythmia types.
+The proposed approach demonstrates high accuracy in arrhythmia classification. The main results, as shown in Figure 2, provide a comprehensive performance comparison across arrhythmia types.
 
-> ![Table 1: Classification Performance](figures/results.png)  
-> *Table 1: CLASSIFICATION PERFORMANCE OF THE PROPOSED 1D SELF-ONN WITH Q =3 AND FIVE COMPETING ALGORITHMS.
+> ![Figure 2: Classification Performance](figures/results.png)  
+> *Figure 2: CLASSIFICATION PERFORMANCE OF THE PROPOSED 1D SELF-ONN WITH Q =3 AND FIVE COMPETING ALGORITHMS.
 
 These results demonstrate that our Self-ONN approach can perform high-accuracy arrhythmia classification with minimal computational overhead, making it feasible for real-time, low-power ECG monitoring devices.
 
